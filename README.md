@@ -16,9 +16,9 @@ Or you can just deploy it on your own Heroku account by clicking this button:
  
 # Use it
 
-Discover all application entry points as a JSON-HOME resource:
+Discover all application entry points as a JSON-HOME resource on the following URL:
 
-    curl 'http://localhost:8080/rest/'
+    http://localhost:8080/
 
 Then follow links to HAL resources.
 

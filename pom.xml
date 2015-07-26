@@ -3,37 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.seedstack</groupId>
-        <artifactId>parent</artifactId>
-        <version>2.0.0-M3</version>
-    </parent>
-
     <groupId>org.seedstack.samples.catalog</groupId>
-    <artifactId>catalog</artifactId>
+    <artifactId>catalog-microservice-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+
+        <ecommerce-domain.version>1.0.0-SNAPSHOT</ecommerce-domain.version>
+        <seedstack-distribution.version>15.7-SNAPSHOT</seedstack-distribution.version>
     </properties>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.mycila</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>check-license-header</id>
-                            <phase>none</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <testResources>
             <testResource>
                 <directory>src/it/resources</directory>
@@ -43,16 +29,6 @@
             </testResource>
         </testResources>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>check-license-compliance</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -102,23 +78,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.seedstack.seed</groupId>
-                <artifactId>seed-bom</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.seedstack.business</groupId>
-                <artifactId>business-bom</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.seedstack</groupId>
                 <artifactId>seedstack-bom</artifactId>
-                <version>15.7-M5</version>
+                <version>${seedstack-distribution.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -186,6 +148,20 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
-
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus Staging</name>
+            <url>https://oss.sonatype.org/content/groups/staging</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus Staging</name>
+            <url>https://oss.sonatype.org/content/groups/staging</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
