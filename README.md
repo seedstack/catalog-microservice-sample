@@ -1,23 +1,22 @@
 # Catalog microservice sample
 
-A REST microservice exposing the API of a product catalog.
+A REST microservice exposing the API of a product catalog, based on the e-commerce domain model.
 
 # Run it
 
-Download the sample:
+If you have [Maven 3](http://maven.apache.org/) installed, you can clone the repository and run it locally with the maven Jetty plugin:
 
-    git clone https://github.com/seedstack/catalog-microservice-sample
+    git clone https://github.com/seedstack/catalog-microservice-sample.git
     cd catalog-microservice-sample
+    mvn clean install && mvn jetty:run
 
-Build the project
+Or you can just deploy it on your own Heroku account by clicking this button:
 
-    mvn clean install
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+ 
+# Use it
 
-Start the sample:
-
-    mvn jetty:run
-
-Show all the application entry points as a JSON-HOME resource:
+Discover all application entry points as a JSON-HOME resource:
 
     curl 'http://localhost:8080/rest/'
 
