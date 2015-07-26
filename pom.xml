@@ -103,12 +103,24 @@
             <type>pom</type>
         </dependency>
 
-        <!-- Server API -->
+        <!-- Persistence -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
+            <groupId>org.seedstack.business</groupId>
+            <artifactId>business-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.10.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.10.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
         </dependency>
 
         <!-- Logger -->
@@ -132,29 +144,6 @@
             <groupId>org.seedstack.seed</groupId>
             <artifactId>seed-integrationtest-support-web</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seedstack.business</groupId>
-            <artifactId>business-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-persistence-support-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.3.10.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.10.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
         </dependency>
     </dependencies>
 
