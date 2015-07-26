@@ -1,0 +1,6 @@
+{
+  "name": "SeedStack catalog sample",
+  "description": "A REST microservice exposing the API of a product catalog, based on the e-commerce domain model.",
+  "repository": "https://github.com/seedstack/catalog-microservice-sample",
+  "keywords": ["seedstack", "microservice", "rest", "api", "java", "sample"]
+}
