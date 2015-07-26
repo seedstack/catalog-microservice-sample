@@ -1,4 +1,5 @@
 # Catalog microservice sample
+[![Build status](https://travis-ci.org/seedstack/catalog-microservice-sample.svg?branch=master)](https://travis-ci.org/seedstack/catalog-microservice-sample)
 
 A REST microservice exposing the API of a product catalog, based on the e-commerce domain model.
 
