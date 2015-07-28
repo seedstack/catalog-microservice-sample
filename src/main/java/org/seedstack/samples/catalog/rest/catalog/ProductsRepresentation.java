@@ -13,13 +13,16 @@ public class ProductsRepresentation extends HalRepresentation {
 
     private long currentPage;
 
+    // required by jackson
     ProductsRepresentation() {
     }
 
     public ProductsRepresentation(PaginatedView<ProductRepresentation> page) {
         this.totalProduct = page.getResultSize();
         this.currentPage = page.getPageIndex();
-        embedded("products", page.getView());
+        if (page.getView().size() > 0) {
+            embedded("products", page.getView());
+        }
     }
 
     public long getTotalProduct() {

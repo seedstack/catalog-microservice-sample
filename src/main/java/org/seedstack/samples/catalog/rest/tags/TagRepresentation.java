@@ -1,7 +1,6 @@
 package org.seedstack.samples.catalog.rest.tags;
 
-import org.seedstack.business.api.interfaces.finder.Result;
-import org.seedstack.business.api.interfaces.view.Page;
+import org.seedstack.business.api.interfaces.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.seed.rest.api.hal.HalRepresentation;
 
@@ -16,14 +15,17 @@ public class TagRepresentation extends HalRepresentation {
 
     private long currentPage;
 
-    protected TagRepresentation() {
+    // required by jackson
+    TagRepresentation() {
     }
 
-    public TagRepresentation(String tagName, Result<ProductRepresentation> result, Page page) {
-        embedded("products", result.getResult());
+    public TagRepresentation(String tagName, PaginatedView<ProductRepresentation> view) {
         this.name = tagName;
-        this.totalItems = result.getFullSize();
-        this.currentPage = page.getIndex();
+        this.totalItems = view.getResultSize();
+        this.currentPage = view.getPageIndex();
+        if (view.getView().size() > 0) {
+            embedded("products", view.getView());
+        }
     }
 
     public String getName() {

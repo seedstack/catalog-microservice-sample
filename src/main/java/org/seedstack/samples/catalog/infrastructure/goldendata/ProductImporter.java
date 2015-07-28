@@ -2,7 +2,7 @@ package org.seedstack.samples.catalog.infrastructure.goldendata;
 
 import org.seedstack.business.api.domain.Repository;
 import org.seedstack.samples.catalog.domain.product.Product;
-import org.seedstack.samples.catalog.infrastructure.Config;
+import org.seedstack.samples.catalog.Config;
 import org.seedstack.seed.core.spi.data.DataImporter;
 import org.seedstack.seed.core.spi.data.DataSet;
 import org.seedstack.seed.persistence.jpa.api.Jpa;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @DataSet(group="catalog", name="product")
-public class ProductImporter implements DataImporter<Product> {
+class ProductImporter implements DataImporter<Product> {
 
     @Inject @Jpa
     private Repository<Product, String> repository;

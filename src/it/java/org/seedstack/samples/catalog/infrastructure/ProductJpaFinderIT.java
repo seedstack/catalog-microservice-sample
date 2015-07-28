@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seedstack.business.api.interfaces.finder.Range;
 import org.seedstack.business.api.interfaces.finder.Result;
-import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
+import org.seedstack.business.api.interfaces.view.Page;
+import org.seedstack.business.api.interfaces.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.catalog.ProductsFinder;
+import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.seed.it.SeedITRunner;
 
 import javax.inject.Inject;
@@ -26,5 +28,13 @@ public class ProductJpaFinderIT {
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.getFullSize()).isGreaterThanOrEqualTo(0);
         Assertions.assertThat(result.getSize()).isGreaterThanOrEqualTo(0);
+    }
+
+    @Test
+    public void test_find_with_filter() {
+        PaginatedView<ProductRepresentation> view = productsFinder.findProducts(new Page(0, 10), "gige");
+        Assertions.assertThat(view).isNotNull();
+        Assertions.assertThat(view.getResultSize()).isEqualTo(1);
+        Assertions.assertThat(view.getView()).hasSize(1);
     }
 }

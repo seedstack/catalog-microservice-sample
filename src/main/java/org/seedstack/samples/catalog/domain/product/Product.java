@@ -10,6 +10,8 @@ import java.net.URI;
 import java.util.Set;
 
 /**
+ * The product entity.
+ *
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @Entity
@@ -31,6 +33,11 @@ public class Product extends BaseAggregateRoot<String> {
     Product() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param name the product name
+     */
     public Product(String name) {
         this.name = name;
     }

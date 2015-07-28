@@ -5,7 +5,7 @@ import com.sun.jersey.api.NotFoundException;
 import org.seedstack.business.api.domain.Repository;
 import org.seedstack.business.api.interfaces.assembler.FluentAssembler;
 import org.seedstack.samples.catalog.domain.product.Product;
-import org.seedstack.samples.catalog.infrastructure.Config;
+import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.rest.CatalogRels;
 import org.seedstack.samples.catalog.rest.catalog.TagRepresentation;
 import org.seedstack.seed.persistence.jpa.api.Jpa;

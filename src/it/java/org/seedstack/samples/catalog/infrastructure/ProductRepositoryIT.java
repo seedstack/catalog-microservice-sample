@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seedstack.business.api.domain.Factory;
 import org.seedstack.business.api.domain.Repository;
+import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.domain.product.Price;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.seed.it.SeedITRunner;

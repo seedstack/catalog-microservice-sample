@@ -5,6 +5,8 @@ import org.seedstack.business.api.domain.BaseValueObject;
 import javax.persistence.Embeddable;
 
 /**
+ * A price value object.
+ *
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @Embeddable
@@ -17,6 +19,12 @@ public class Price extends BaseValueObject {
     Price() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param amount   the amount
+     * @param currency the currency
+     */
     public Price(float amount, String currency) {
         if (amount < 0) {
             throw new IllegalArgumentException("The price amount can't be negative: " + amount);
@@ -25,10 +33,16 @@ public class Price extends BaseValueObject {
         this.currency = currency;
     }
 
+    /**
+     * @return the amount
+     */
     public float getAmount() {
         return amount;
     }
 
+    /**
+     * @return the currency
+     */
     public String getCurrency() {
         return currency;
     }
