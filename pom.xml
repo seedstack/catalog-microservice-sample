@@ -10,6 +10,7 @@
 
     <properties>
         <coveralls-maven-plugin.version>3.1.0</coveralls-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -21,6 +22,7 @@
     </properties>
 
     <build>
+
         <testResources>
             <testResource>
                 <directory>src/it/resources</directory>
@@ -29,6 +31,25 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
+
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/jacoco-all.exec</dataFile>
+                        <outputDirectory>${project.reporting.outputDirectory}/jacoco-all</outputDirectory>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
