@@ -1,4 +1,4 @@
-package org.seedstack.samples.catalog.infrastructure;
+package org.seedstack.samples.catalog;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

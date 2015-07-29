@@ -1,5 +1,5 @@
 # Catalog microservice sample
-[![Build status](https://travis-ci.org/seedstack/catalog-microservice-sample.svg?branch=master)](https://travis-ci.org/seedstack/catalog-microservice-sample)
+[![Build status](https://travis-ci.org/seedstack/catalog-microservice-sample.svg?branch=master)](https://travis-ci.org/seedstack/catalog-microservice-sample)[![Coverage Status](https://coveralls.io/repos/seedstack/catalog-microservice-sample/badge.svg?branch=coveralls&service=github)](https://coveralls.io/github/seedstack/catalog-microservice-sample?branch=coveralls)
 
 A REST microservice exposing the API of a product catalog, based on the e-commerce domain model.
 

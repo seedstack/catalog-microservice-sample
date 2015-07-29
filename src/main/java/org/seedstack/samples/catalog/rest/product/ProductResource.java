@@ -99,6 +99,6 @@ public class ProductResource {
 
         return Response.ok(HalBuilder.create(null)
                         .self(relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).expand())
-                        .embedded("tags", related)).build();
+                        .embedded("related", related)).build();
     }
 }

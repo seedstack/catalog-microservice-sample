@@ -16,4 +16,5 @@ cache:
 install: /bin/true
 
 script:
-  - mvn -B -U install
+  - mvn --quiet -B -U -T 4 install jacoco:report
+  - mvn -B coveralls:report -DrepoToken=$COVERALLS_TOKEN
