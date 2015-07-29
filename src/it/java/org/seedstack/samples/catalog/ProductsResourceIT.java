@@ -1,4 +1,4 @@
-package org.seedstack.samples.catalog.infrastructure;
+package org.seedstack.samples.catalog;
 
 import com.jayway.restassured.response.Response;
 import org.jboss.arquillian.container.test.api.Deployment;

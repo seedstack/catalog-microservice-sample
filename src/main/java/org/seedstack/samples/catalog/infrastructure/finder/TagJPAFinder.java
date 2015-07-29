@@ -42,7 +42,7 @@ class TagJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implements 
     public PaginatedView<ProductRepresentation> findProductsByTag(Page page, String tagName) {
         Map<String, Object> map = new HashMap<String, Object>();
         if (tagName != null && !"".equals(tagName)) {
-            map.put(TAG_NAME, "%" + tagName + "%");
+            map.put(TAG_NAME, tagName);
         }
         Result<ProductRepresentation> result = find(Range.rangeFromPageInfo(page.getIndex(), page.getCapacity()), map);
         return new PaginatedView<ProductRepresentation>(result, page);
