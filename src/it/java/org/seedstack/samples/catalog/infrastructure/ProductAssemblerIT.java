@@ -7,6 +7,8 @@ import org.seedstack.business.api.interfaces.assembler.FluentAssembler;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.seed.it.SeedITRunner;
+import org.seedstack.seed.rest.api.hal.HalRepresentation;
+import org.seedstack.seed.rest.api.hal.Link;
 
 import javax.inject.Inject;
 
@@ -22,9 +24,9 @@ public class ProductAssemblerIT {
     @Test
     public void test_assemble() {
         Product product = new Product("productName");
-        ProductRepresentation representation = fluently.assemble(product).to(ProductRepresentation.class);
+        HalRepresentation representation = fluently.assemble(product).to(ProductRepresentation.class);
         Assertions.assertThat(representation).isNotNull();
-        Assertions.assertThat(representation.getLinks().get("self").iterator().next().getHref()).isEqualTo("/products/productName");
-        Assertions.assertThat(representation.getLinks().get("tags").iterator().next().getHref()).isEqualTo("/products/productName/tags");
+        Assertions.assertThat(((Link) representation.getLink("self")).getHref()).isEqualTo("/products/productName");
+        Assertions.assertThat(((Link) representation.getLink("tags")).getHref()).isEqualTo("/products/productName/tags");
     }
 }

@@ -32,7 +32,7 @@ public class ProductJpaFinderIT {
 
     @Test
     public void test_find_with_filter() {
-        PaginatedView<ProductRepresentation> view = productsFinder.findProducts(new Page(0, 10), "gige");
+        PaginatedView<ProductRepresentation> view = productsFinder.findProducts(new Page(0, 10), "ixa");
         Assertions.assertThat(view).isNotNull();
         Assertions.assertThat(view.getResultSize()).isEqualTo(1);
         Assertions.assertThat(view.getView()).hasSize(1);

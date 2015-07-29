@@ -36,9 +36,16 @@ public class ProductAssembler extends ModelMapperAssembler<Product, ProductRepre
                         return relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", source).expand();
                     }
                 };
+                AbstractConverter<Object, Object> relatedConverter = new AbstractConverter<Object, Object>() {
+                    @Override
+                    protected Object convert(Object source) {
+                        return relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", source).expand();
+                    }
+                };
 
                 using(selfConverter).map().self(source.getName());
                 using(tagConverter).map().setTags(source.getName());
+                using(relatedConverter).map().setRelated(source.getName());
             }
         });
     }

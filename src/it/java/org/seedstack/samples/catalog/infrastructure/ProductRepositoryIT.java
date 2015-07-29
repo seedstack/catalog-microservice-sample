@@ -18,6 +18,8 @@ import javax.inject.Inject;
 /**
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
+@Transactional
+@JpaUnit(Config.JPA_UNIT)
 @RunWith(SeedITRunner.class)
 public class ProductRepositoryIT {
 
@@ -28,8 +30,6 @@ public class ProductRepositoryIT {
     private Factory<Product> factory;
 
     @Test
-    @Transactional
-    @JpaUnit(Config.JPA_UNIT)
     public void test_database_config() {
         Product product = factory.create("SeedStack in Action");
         product.setDescription("Book presenting seedstack and all its awesome features");
@@ -39,5 +39,12 @@ public class ProductRepositoryIT {
         Product product1 = repository.load("SeedStack in Action");
         Assertions.assertThat(product1).isNotNull();
         Assertions.assertThat(product1.getDescription()).isEqualTo("Book presenting seedstack and all its awesome features");
+    }
+
+    @Test
+    public void test_related_products() {
+        Product eventage = repository.load("Xixan");
+        Assertions.assertThat(eventage.getRelated()).hasSize(4);
+        Assertions.assertThat(repository.load(eventage.getRelated().iterator().next())).isNotNull();
     }
 }

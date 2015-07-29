@@ -7,6 +7,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.net.URI;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -28,7 +29,13 @@ public class Product extends BaseAggregateRoot<String> {
     private String description;
 
     @ElementCollection
-    private Set<String> tags;
+    private Set<String> tags = new HashSet<String>();
+
+    @ElementCollection
+    private Set<String> details = new HashSet<String>();
+
+    @ElementCollection
+    private Set<String> related = new HashSet<String>();
 
     Product() {
     }
@@ -76,6 +83,22 @@ public class Product extends BaseAggregateRoot<String> {
 
     public void tag(String tag) {
         this.tags.add(tag);
+    }
+
+    public Set<String> getDetails() {
+        return details;
+    }
+
+    public void addDetails(String details) {
+        this.details.add(details);
+    }
+
+    public Set<String> getRelated() {
+        return related;
+    }
+
+    public void addRelated(String related) {
+        this.related.add(related);
     }
 
     @Override

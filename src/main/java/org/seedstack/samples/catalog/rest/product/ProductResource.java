@@ -29,8 +29,13 @@ import java.util.List;
 /**
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
+@Transactional
+@JpaUnit(Config.JPA_UNIT)
 @Path("/products/{title}")
+@Produces({MediaType.APPLICATION_JSON, "application/hal+json"})
 public class ProductResource {
+
+    private static final String PRODUCT_DOES_NOT_EXIST = "Product %s doesn't exist";
 
     @Inject @Jpa
     private Repository<Product, String> repository;
@@ -41,30 +46,27 @@ public class ProductResource {
     @Inject
     private FluentAssembler fluently;
 
+    @PathParam("title")
+    private String productName;
+
     @GET
-    @Transactional
-    @JpaUnit(Config.JPA_UNIT)
     @Rel(value = CatalogRels.PRODUCT, home = true)
-    @Produces({MediaType.APPLICATION_JSON, "application/hal+json"})
-    public Response getProduct(@PathParam("title") String title) {
-        Product product = repository.load(title);
+    public Response getProduct() {
+        Product product = repository.load(productName);
         if (product == null) {
-            throw new NotFoundException("Product " + title + " doesn't exist");
+            throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
         }
 
         return Response.ok(fluently.assemble(product).to(ProductRepresentation.class)).build();
     }
 
-    @Transactional
-    @JpaUnit(Config.JPA_UNIT)
     @GET
-    @Rel(CatalogRels.PRODUCT_TAGS)
     @Path("/tags")
-    @Produces({MediaType.APPLICATION_JSON, "application/hal+json"})
-    public Response getTags(@PathParam("title") String title) {
-        Product product = repository.load(title);
+    @Rel(CatalogRels.PRODUCT_TAGS)
+    public Response getTags() {
+        Product product = repository.load(productName);
         if (product == null) {
-            throw new NotFoundException("Product " + title + " doesn't exist");
+            throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
         }
 
         List<HalRepresentation> tagRepresentations = new ArrayList<HalRepresentation>(product.getTags().size());
@@ -73,8 +75,30 @@ public class ProductResource {
         }
 
         return Response.ok(HalBuilder.create(null)
-                .self(relRegistry.uri(CatalogRels.PRODUCT).set("title", title).expand())
-                .embedded("tags", tagRepresentations)
+                        .self(relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", productName).expand())
+                        .embedded("tags", tagRepresentations)
         ).build();
+    }
+
+    @GET
+    @Path("/related")
+    @Rel(CatalogRels.PRODUCT_RELATED)
+    public Response getRelated() {
+        Product product = repository.load(productName);
+        if (product == null) {
+            throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
+        }
+
+        List<ProductRepresentation> related = new ArrayList<ProductRepresentation>(product.getRelated().size());
+        for (String relatedName : product.getRelated()) {
+            Product relatedProduct = repository.load(relatedName);
+            if (relatedProduct != null) {
+                related.add(fluently.assemble(relatedProduct).to(ProductRepresentation.class));
+            }
+        }
+
+        return Response.ok(HalBuilder.create(null)
+                        .self(relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).expand())
+                        .embedded("tags", related)).build();
     }
 }

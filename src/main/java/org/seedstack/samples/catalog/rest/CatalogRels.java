@@ -26,4 +26,6 @@ public class CatalogRels {
      * Tag resource. Exposes all the products corresponding to a tag.
      */
     public static final String TAG = "tag";
+
+    public static final String PRODUCT_RELATED = "related";
 }
