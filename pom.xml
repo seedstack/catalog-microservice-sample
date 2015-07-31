@@ -17,8 +17,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
-        <ecommerce-domain.version>1.0.0-SNAPSHOT</ecommerce-domain.version>
-        <seedstack-distribution.version>15.7-SNAPSHOT</seedstack-distribution.version>
+        <seedstack-distribution.version>15.7</seedstack-distribution.version>
     </properties>
 
     <build>
