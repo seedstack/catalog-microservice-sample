@@ -3,7 +3,7 @@
 
 A REST microservice exposing the API of a product catalog, based on the e-commerce domain model.
 
-# Run it
+# Run
 
 If you have [Maven 3](http://maven.apache.org/) installed, you can clone the repository and run it locally with the maven Jetty plugin:
 
@@ -11,17 +11,25 @@ If you have [Maven 3](http://maven.apache.org/) installed, you can clone the rep
     cd catalog-microservice-sample
     mvn clean install && mvn jetty:run
 
-Or you can just deploy it on your own Heroku account by clicking this button:
+# Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+With Docker, build the image:
+
+    docker build -t micro-cata-v1.0 .
+ 
+Start a container:
+
+    docker run -d -p 8080:8080 micro-cata-v1.0
+    
+Or you can just deploy it on your own Heroku account by clicking this button: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)   
  
 # Use it
 
 Discover all application entry points as a JSON-HOME resource on the following URL:
 
-    http://localhost:8080/
+    curl http://localhost:8080/
 
-Then follow links to HAL resources.
+Then follow the links to HAL resources.
 
 # Copyright and license
 
