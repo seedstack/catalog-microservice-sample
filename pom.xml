@@ -17,7 +17,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
-        <seedstack-distribution.version>15.7</seedstack-distribution.version>
+        <seedstack-distribution.version>15.11-M1-SNAPSHOT</seedstack-distribution.version>
     </properties>
 
     <build>
@@ -196,8 +196,8 @@
 
         <!-- Persistence -->
         <dependency>
-            <groupId>org.seedstack.business</groupId>
-            <artifactId>business-jpa</artifactId>
+            <groupId>org.seedstack.addons.jpa</groupId>
+            <artifactId>jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -212,44 +212,57 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+            <version>2.3.3</version>
         </dependency>
 
         <!-- Logger -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>1.1.3</version>
         </dependency>
 
         <!-- Testing  -->
         <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-unittest-support</artifactId>
+            <groupId>org.seedstack.poms</groupId>
+            <artifactId>arquillian-composite</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.5.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-integrationtest-support-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-integrationtest-support-web</artifactId>
+            <artifactId>seed-testing</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus Staging</name>
-            <url>https://oss.sonatype.org/content/groups/staging</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus Staging</name>
-            <url>https://oss.sonatype.org/content/groups/staging</url>
-        </pluginRepository>
-    </pluginRepositories>
+    <profiles>
+        <profile>
+            <id>snapshots</id>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <id>ojo-libs-snapshot</id>
+                    <name>ojo-snapshots</name>
+                    <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>
