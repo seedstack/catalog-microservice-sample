@@ -1,8 +1,8 @@
 package org.seedstack.samples.catalog.rest.tags;
 
-import org.seedstack.business.api.interfaces.view.PaginatedView;
+import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
-import org.seedstack.seed.rest.api.hal.HalRepresentation;
+import org.seedstack.seed.rest.hal.HalRepresentation;
 
 /**
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)

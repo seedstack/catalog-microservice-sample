@@ -1,6 +1,6 @@
 package org.seedstack.samples.catalog.domain.product;
 
-import org.seedstack.business.api.domain.BaseValueObject;
+import org.seedstack.business.domain.BaseValueObject;
 
 /**
  * A tag value object.

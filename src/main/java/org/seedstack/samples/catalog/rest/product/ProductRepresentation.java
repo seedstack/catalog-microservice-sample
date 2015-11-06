@@ -1,9 +1,9 @@
 package org.seedstack.samples.catalog.rest.product;
 
-import org.seedstack.business.api.interfaces.assembler.DtoOf;
+import org.seedstack.business.assembler.DtoOf;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.rest.CatalogRels;
-import org.seedstack.seed.rest.api.hal.HalRepresentation;
+import org.seedstack.seed.rest.hal.HalRepresentation;
 
 import java.net.URI;
 import java.util.List;

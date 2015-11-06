@@ -3,15 +3,14 @@ package org.seedstack.samples.catalog;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.seedstack.business.api.domain.Factory;
-import org.seedstack.business.api.domain.Repository;
-import org.seedstack.samples.catalog.Config;
+import org.seedstack.business.domain.Factory;
+import org.seedstack.business.domain.Repository;
+import org.seedstack.jpa.Jpa;
+import org.seedstack.jpa.JpaUnit;
 import org.seedstack.samples.catalog.domain.product.Price;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.seed.it.SeedITRunner;
-import org.seedstack.seed.persistence.jpa.api.Jpa;
-import org.seedstack.seed.persistence.jpa.api.JpaUnit;
-import org.seedstack.seed.transaction.api.Transactional;
+import org.seedstack.seed.transaction.Transactional;
 
 import javax.inject.Inject;
 
@@ -39,6 +38,8 @@ public class ProductRepositoryIT {
         Product product1 = repository.load("SeedStack in Action");
         Assertions.assertThat(product1).isNotNull();
         Assertions.assertThat(product1.getDescription()).isEqualTo("Book presenting seedstack and all its awesome features");
+
+        repository.delete(product1.getEntityId()); // cleanup
     }
 
     @Test

@@ -1,13 +1,13 @@
 package org.seedstack.samples.catalog.infrastructure.goldendata;
 
-import org.seedstack.business.api.domain.Repository;
+import org.seedstack.business.domain.Repository;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.Config;
-import org.seedstack.seed.core.spi.data.DataImporter;
-import org.seedstack.seed.core.spi.data.DataSet;
-import org.seedstack.seed.persistence.jpa.api.Jpa;
-import org.seedstack.seed.persistence.jpa.api.JpaUnit;
-import org.seedstack.seed.transaction.api.Transactional;
+import org.seedstack.seed.DataImporter;
+import org.seedstack.seed.DataSet;
+import org.seedstack.jpa.Jpa;
+import org.seedstack.jpa.JpaUnit;
+import org.seedstack.seed.transaction.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

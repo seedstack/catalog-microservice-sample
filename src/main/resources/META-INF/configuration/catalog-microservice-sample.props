@@ -1,19 +1,17 @@
-[org.seedstack.seed]
-core.application-id = catalog
-rest.path =
-
-[org.seedstack.seed.persistence]
+[org.seedstack]
+seed.core.application-id = catalog
+seed.rest.path =
 jdbc.datasources = catalogDatasource
 jpa.units = catalog-domain
 
-[org.seedstack.seed.persistence.jdbc.datasource.catalogDatasource]
+[org.seedstack.jdbc.datasource.catalogDatasource]
 driver = org.hsqldb.jdbcDriver
 url = jdbc:hsqldb:mem:seedstackstore
 user = sa
 password =
 property.sql.enforce_strict_size = true
 
-[org.seedstack.seed.persistence.jpa.unit.catalog-domain]
+[org.seedstack.jpa.unit.catalog-domain]
 datasource = catalogDatasource
 property.hibernate.dialect = org.hibernate.dialect.HSQLDialect
 property.hibernate.hbm2ddl.auto = update

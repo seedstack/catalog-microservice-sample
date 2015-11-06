@@ -1,18 +1,18 @@
 package org.seedstack.samples.catalog.infrastructure.finder;
 
 import com.google.inject.Inject;
-import org.seedstack.business.api.interfaces.assembler.FluentAssembler;
-import org.seedstack.business.api.interfaces.finder.Range;
-import org.seedstack.business.api.interfaces.finder.Result;
-import org.seedstack.business.api.interfaces.view.Page;
-import org.seedstack.business.api.interfaces.view.PaginatedView;
-import org.seedstack.business.jpa.BaseJpaRangeFinder;
+import org.seedstack.business.assembler.FluentAssembler;
+import org.seedstack.business.finder.Range;
+import org.seedstack.business.finder.Result;
+import org.seedstack.business.view.Page;
+import org.seedstack.business.view.PaginatedView;
+import org.seedstack.jpa.BaseJpaRangeFinder;
 import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.samples.catalog.rest.tags.TagFinder;
-import org.seedstack.seed.persistence.jpa.api.JpaUnit;
-import org.seedstack.seed.transaction.api.Transactional;
+import org.seedstack.jpa.JpaUnit;
+import org.seedstack.seed.transaction.Transactional;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
