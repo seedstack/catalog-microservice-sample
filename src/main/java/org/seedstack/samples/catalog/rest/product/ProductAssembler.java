@@ -4,10 +4,10 @@ package org.seedstack.samples.catalog.rest.product;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.seedstack.business.api.interfaces.assembler.ModelMapperAssembler;
+import org.seedstack.business.assembler.modelmapper.ModelMapperAssembler;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.rest.CatalogRels;
-import org.seedstack.seed.rest.api.RelRegistry;
+import org.seedstack.seed.rest.RelRegistry;
 
 import javax.inject.Inject;
 

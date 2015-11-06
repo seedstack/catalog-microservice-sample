@@ -2,19 +2,19 @@ package org.seedstack.samples.catalog.rest.product;
 
 import com.google.inject.Inject;
 import com.sun.jersey.api.NotFoundException;
-import org.seedstack.business.api.domain.Repository;
-import org.seedstack.business.api.interfaces.assembler.FluentAssembler;
+import org.seedstack.business.domain.Repository;
+import org.seedstack.business.assembler.FluentAssembler;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.rest.CatalogRels;
 import org.seedstack.samples.catalog.rest.catalog.TagRepresentation;
-import org.seedstack.seed.persistence.jpa.api.Jpa;
-import org.seedstack.seed.persistence.jpa.api.JpaUnit;
-import org.seedstack.seed.rest.api.Rel;
-import org.seedstack.seed.rest.api.RelRegistry;
-import org.seedstack.seed.rest.api.hal.HalBuilder;
-import org.seedstack.seed.rest.api.hal.HalRepresentation;
-import org.seedstack.seed.transaction.api.Transactional;
+import org.seedstack.jpa.Jpa;
+import org.seedstack.jpa.JpaUnit;
+import org.seedstack.seed.rest.Rel;
+import org.seedstack.seed.rest.RelRegistry;
+import org.seedstack.seed.rest.hal.HalBuilder;
+import org.seedstack.seed.rest.hal.HalRepresentation;
+import org.seedstack.seed.transaction.Transactional;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -3,12 +3,12 @@ package org.seedstack.samples.catalog;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.seedstack.business.api.interfaces.assembler.FluentAssembler;
+import org.seedstack.business.assembler.FluentAssembler;
 import org.seedstack.samples.catalog.domain.product.Product;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.seed.it.SeedITRunner;
-import org.seedstack.seed.rest.api.hal.HalRepresentation;
-import org.seedstack.seed.rest.api.hal.Link;
+import org.seedstack.seed.rest.hal.HalRepresentation;
+import org.seedstack.seed.rest.hal.Link;
 
 import javax.inject.Inject;
 

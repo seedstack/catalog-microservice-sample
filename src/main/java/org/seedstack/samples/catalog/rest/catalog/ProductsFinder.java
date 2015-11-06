@@ -1,9 +1,9 @@
 package org.seedstack.samples.catalog.rest.catalog;
 
-import org.seedstack.business.api.interfaces.finder.Finder;
-import org.seedstack.business.api.interfaces.finder.RangeFinder;
-import org.seedstack.business.api.interfaces.view.Page;
-import org.seedstack.business.api.interfaces.view.PaginatedView;
+import org.seedstack.business.finder.Finder;
+import org.seedstack.business.finder.RangeFinder;
+import org.seedstack.business.view.Page;
+import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 
 import java.util.Map;

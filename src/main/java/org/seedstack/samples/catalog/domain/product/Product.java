@@ -1,7 +1,7 @@
 package org.seedstack.samples.catalog.domain.product;
 
 import org.hibernate.annotations.Type;
-import org.seedstack.business.api.domain.BaseAggregateRoot;
+import org.seedstack.business.domain.BaseAggregateRoot;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

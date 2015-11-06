@@ -1,15 +1,15 @@
 package org.seedstack.samples.catalog.rest.tags;
 
-import org.seedstack.business.api.interfaces.view.Page;
-import org.seedstack.business.api.interfaces.view.PaginatedView;
+import org.seedstack.business.view.Page;
+import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.rest.CatalogRels;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
-import org.seedstack.seed.persistence.jpa.api.JpaUnit;
-import org.seedstack.seed.rest.api.Rel;
-import org.seedstack.seed.rest.api.RelRegistry;
-import org.seedstack.seed.rest.api.hal.HalRepresentation;
-import org.seedstack.seed.transaction.api.Transactional;
+import org.seedstack.jpa.JpaUnit;
+import org.seedstack.seed.rest.Rel;
+import org.seedstack.seed.rest.RelRegistry;
+import org.seedstack.seed.rest.hal.HalRepresentation;
+import org.seedstack.seed.transaction.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
