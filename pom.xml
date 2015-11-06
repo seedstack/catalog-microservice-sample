@@ -6,7 +6,6 @@
     <groupId>org.seedstack.samples.catalog</groupId>
     <artifactId>catalog-microservice-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <properties>
         <coveralls-maven-plugin.version>3.1.0</coveralls-maven-plugin.version>
@@ -21,7 +20,7 @@
     </properties>
 
     <build>
-
+        <finalName>catalog</finalName>
         <testResources>
             <testResource>
                 <directory>src/it/resources</directory>
@@ -30,7 +29,6 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
-
 
         <pluginManagement>
             <plugins>
@@ -45,6 +43,11 @@
                         <dataFile>${project.build.directory}/jacoco-all.exec</dataFile>
                         <outputDirectory>${project.reporting.outputDirectory}/jacoco-all</outputDirectory>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.seedstack</groupId>
+                    <artifactId>seedstack-maven-plugin</artifactId>
+                    <version>2.1.0-SNAPSHOT</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -136,41 +139,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.11.v20150529</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.github.jsimone</groupId>
-                                    <artifactId>webapp-runner</artifactId>
-                                    <version>7.0.57.2</version>
-                                    <destFileName>webapp-runner.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -193,16 +161,15 @@
             <artifactId>rest-composite</artifactId>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.seedstack.seed</groupId>
+            <artifactId>seed-web-undertow</artifactId>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
             <groupId>org.seedstack.addons.jpa</groupId>
             <artifactId>jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.3.10.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

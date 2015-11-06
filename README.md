@@ -9,7 +9,7 @@ If you have [Maven 3](http://maven.apache.org/) installed, you can clone the rep
 
     git clone https://github.com/seedstack/catalog-microservice-sample.git
     cd catalog-microservice-sample
-    mvn clean install && mvn jetty:run
+    mvn seedstack:package && java -jar target/catalog-capsule.jar
 
 # Deploy
 
@@ -20,9 +20,7 @@ With Docker, build the image:
 Start a container:
 
     docker run -d -p 8080:8080 micro-cata-v1.0
-    
-Or you can just deploy it on your own Heroku account by clicking this button: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)   
- 
+
 # Use it
 
 Discover all application entry points as a JSON-HOME resource on the following URL:

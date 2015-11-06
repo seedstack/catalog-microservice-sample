@@ -38,6 +38,8 @@ public class ProductRepositoryIT {
         Product product1 = repository.load("SeedStack in Action");
         Assertions.assertThat(product1).isNotNull();
         Assertions.assertThat(product1.getDescription()).isEqualTo("Book presenting seedstack and all its awesome features");
+
+        repository.delete(product1.getEntityId()); // cleanup
     }
 
     @Test
