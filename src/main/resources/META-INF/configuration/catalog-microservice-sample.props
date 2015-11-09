@@ -1,6 +1,5 @@
 [org.seedstack]
 seed.core.application-id = catalog
-seed.rest.path =
 jdbc.datasources = catalogDatasource
 jpa.units = catalog-domain
 

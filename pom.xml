@@ -8,8 +8,6 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <coveralls-maven-plugin.version>3.1.0</coveralls-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -30,77 +28,7 @@
             </testResource>
         </testResources>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco-maven-plugin.version}</version>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <configuration>
-                        <dataFile>${project.build.directory}/jacoco-all.exec</dataFile>
-                        <outputDirectory>${project.reporting.outputDirectory}/jacoco-all</outputDirectory>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.seedstack</groupId>
-                    <artifactId>seedstack-maven-plugin</artifactId>
-                    <version>2.1.0-SNAPSHOT</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${coveralls-maven-plugin.version}</version>
-                <configuration>
-                    <relativeReportDirs>
-                        <relativeReportDir>jacoco-all</relativeReportDir>
-                    </relativeReportDirs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-prepare-agent-it</id>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>merge-ut-and-it</id>
-                        <goals>
-                            <goal>merge</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <configuration>
-                            <fileSets>
-                                <fileSet>
-                                    <directory>${project.build.directory}</directory>
-                                    <includes>
-                                        <include>jacoco.exec</include>
-                                        <include>jacoco-it.exec</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                            <destFile>${project.build.directory}/jacoco-all.exec</destFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -165,8 +93,6 @@
             <groupId>org.seedstack.seed</groupId>
             <artifactId>seed-web-undertow</artifactId>
         </dependency>
-
-        <!-- Persistence -->
         <dependency>
             <groupId>org.seedstack.addons.jpa</groupId>
             <artifactId>jpa</artifactId>
@@ -181,19 +107,17 @@
             <artifactId>hsqldb</artifactId>
             <version>2.3.3</version>
         </dependency>
-
-        <!-- Logger -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.3</version>
         </dependency>
 
-        <!-- Testing  -->
         <dependency>
             <groupId>org.seedstack.poms</groupId>
             <artifactId>arquillian-composite</artifactId>
             <type>pom</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
