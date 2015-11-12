@@ -9,7 +9,7 @@ If you have [Maven 3](http://maven.apache.org/) installed, you can clone the rep
 
     git clone https://github.com/seedstack/catalog-microservice-sample.git
     cd catalog-microservice-sample
-    mvn seedstack:package && java -jar target/catalog-capsule.jar
+    mvn seedstack:run
 
 # Deploy
 
