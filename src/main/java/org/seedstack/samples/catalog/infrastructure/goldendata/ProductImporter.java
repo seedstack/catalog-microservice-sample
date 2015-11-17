@@ -20,6 +20,8 @@ import java.util.List;
 @DataSet(group = "catalog", name = "product")
 class ProductImporter implements DataImporter<Product> {
 
+    public static final int MAXIMUM_ITERATION = 15;
+    
     @Inject
     @Jpa
     private Repository<Product, String> repository;
@@ -49,9 +51,12 @@ class ProductImporter implements DataImporter<Product> {
     }
 
     private void addRelatedProducts(Product product) {
-        for (int i = 0; i < 4; i++) {
+        int iteration = 0;
+        // Iterate until it finds 4 unique related products
+        while (product.getRelated().size() < 4 && iteration < MAXIMUM_ITERATION) {
             Product relatedProduct = staging.get(random.nextInt(staging.size()));
             product.addRelated(relatedProduct.getEntityId());
+            iteration++;
         }
     }
 
