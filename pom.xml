@@ -14,7 +14,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
-        <seedstack-distribution.version>15.11-M1-SNAPSHOT</seedstack-distribution.version>
+        <seedstack-distribution.version>15.11-M1</seedstack-distribution.version>
     </properties>
 
     <build>
@@ -33,7 +33,7 @@
                 <plugin>
                     <groupId>org.seedstack</groupId>
                     <artifactId>seedstack-maven-plugin</artifactId>
-                    <version>2.1.0-SNAPSHOT</version>
+                    <version>2.1.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -147,34 +147,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>snapshots</id>
-            <repositories>
-                <repository>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <id>ojo-libs-snapshot</id>
-                    <name>ojo-snapshots</name>
-                    <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
-                </repository>
-                <repository>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <id>sonatype-nexus-staging</id>
-                    <name>Sonatype Nexus Staging</name>
-                    <url>https://oss.sonatype.org/content/groups/staging</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
 </project>
