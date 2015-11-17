@@ -3,7 +3,6 @@ package org.seedstack.samples.catalog;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.seedstack.business.domain.Factory;
 import org.seedstack.business.domain.Repository;
 import org.seedstack.jpa.Jpa;
 import org.seedstack.jpa.JpaUnit;
@@ -22,24 +21,23 @@ import javax.inject.Inject;
 @RunWith(SeedITRunner.class)
 public class ProductRepositoryIT {
 
+    public static final String PRODUCT_NAME = "SeedStack in Action";
+
     @Inject @Jpa
     private Repository<Product, String> repository;
 
-    @Inject
-    private Factory<Product> factory;
-
     @Test
     public void test_database_config() {
-        Product product = factory.create("SeedStack in Action");
+        Product product = new Product(PRODUCT_NAME);
         product.setDescription("Book presenting seedstack and all its awesome features");
         product.setPricing(new Price(45, "euro"));
         repository.persist(product);
 
-        Product product1 = repository.load("SeedStack in Action");
+        Product product1 = repository.load(PRODUCT_NAME);
         Assertions.assertThat(product1).isNotNull();
         Assertions.assertThat(product1.getDescription()).isEqualTo("Book presenting seedstack and all its awesome features");
 
-        repository.delete(product1.getEntityId()); // cleanup
+        repository.delete(product1); // cleanup
     }
 
     @Test

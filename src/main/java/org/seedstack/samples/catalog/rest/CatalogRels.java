@@ -27,5 +27,8 @@ public class CatalogRels {
      */
     public static final String TAG = "tag";
 
+    /**
+     * All products related to another products.
+     */
     public static final String PRODUCT_RELATED = "related";
 }
