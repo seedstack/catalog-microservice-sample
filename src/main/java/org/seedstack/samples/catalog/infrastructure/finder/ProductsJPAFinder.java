@@ -37,12 +37,12 @@ class ProductsJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implem
 
     @Override
     public PaginatedView<ProductRepresentation> findProducts(Page page, String query) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         if (query != null && !"".equals(query)) {
             map.put("q", "%" + query + "%");
         }
         Result<ProductRepresentation> result = find(Range.rangeFromPageInfo(page.getIndex(), page.getCapacity()), map);
-        return new PaginatedView<ProductRepresentation>(result, page);
+        return new PaginatedView<>(result, page);
     }
 
     @Override

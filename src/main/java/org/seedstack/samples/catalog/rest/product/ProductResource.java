@@ -24,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -69,14 +70,13 @@ public class ProductResource {
             throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
         }
 
-        List<HalRepresentation> tagRepresentations = new ArrayList<HalRepresentation>(product.getTags().size());
-        for (String tagName : product.getTags()) {
-            tagRepresentations.add(HalBuilder.create(new TagRepresentation(tagName)).self(relRegistry.uri(CatalogRels.TAG).set("tagName", tagName).expand()));
-        }
+        List<HalRepresentation> tagRepresentations = product.getTags().stream()
+                .map(tagName -> HalBuilder.create(new TagRepresentation(tagName)).self(relRegistry.uri(CatalogRels.TAG).set("tagName", tagName).expand()))
+                .collect(Collectors.toList());
 
         return Response.ok(HalBuilder.create(null)
-                        .self(relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", productName).expand())
-                        .embedded("tags", tagRepresentations)
+                .self(relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", productName).expand())
+                .embedded("tags", tagRepresentations)
         ).build();
     }
 
@@ -98,7 +98,7 @@ public class ProductResource {
         }
 
         return Response.ok(HalBuilder.create(null)
-                        .self(relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).expand())
-                        .embedded("related", related)).build();
+                .self(relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).expand())
+                .embedded("related", related)).build();
     }
 }

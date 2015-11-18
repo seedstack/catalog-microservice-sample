@@ -25,6 +25,7 @@ public class ProductAssemblerIT {
     public void test_assemble() {
         Product product = new Product("productName");
         HalRepresentation representation = fluently.assemble(product).to(ProductRepresentation.class);
+
         Assertions.assertThat(representation).isNotNull();
         Assertions.assertThat(((Link) representation.getLink("self")).getHref()).isEqualTo("/products/productName");
         Assertions.assertThat(((Link) representation.getLink("tags")).getHref()).isEqualTo("/products/productName/tags");
