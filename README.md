@@ -9,8 +9,6 @@ A micro-service project demonstrating REST features of SeedStack: JAX-RS integra
 
 If you have [Maven 3](http://maven.apache.org/) installed, you can clone the repository and run it locally:
 
-    git clone https://github.com/seedstack/catalog-microservice-sample.git
-    cd catalog-microservice-sample
     mvn seedstack:run
 
 # With docker
