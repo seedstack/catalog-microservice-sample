@@ -1,0 +1,6 @@
+{
+  "name": "SeedStack catalog micro-service sample",
+  "description": "Sample demonstrating REST features of SeedStack: JAX-RS integration, hypermedia and JSON-home.",
+  "repository": "https://github.com/seedstack/catalog-microservice-sample",
+  "keywords": ["seedstack", "microservice", "java", "jax-rs", "hypermedia", "sample"]
+}
