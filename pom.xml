@@ -93,7 +93,6 @@
             <plugin>
                 <groupId>org.seedstack</groupId>
                 <artifactId>seedstack-maven-plugin</artifactId>
-                <version>2.1.0</version>
                 <executions>
                     <execution>
                         <id>build-capsule</id>
