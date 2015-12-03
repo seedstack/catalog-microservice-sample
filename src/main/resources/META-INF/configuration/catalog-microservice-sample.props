@@ -10,7 +10,7 @@
 seed.core.application-id = catalog
 jdbc.datasources = catalogDatasource
 jpa.units = catalog-domain
-seed.server.port = 80
+seed.server.port<heroku> = ${env:PORT}
 
 [org.seedstack.jdbc.datasource.catalogDatasource]
 driver = org.hsqldb.jdbcDriver
