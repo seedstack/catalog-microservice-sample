@@ -34,7 +34,7 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
 
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class).setWebXML("WEB-INF/web.xml");
+        return ShrinkWrap.create(WebArchive.class);
     }
 
     @RunAsClient
@@ -43,6 +43,12 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
         Response response = expect().statusCode(200).given().header("Content-Type", "application/hal+json")
                 .get(baseURL.toString() + "products?pageSize=10");
 
+        JSONObject expectedResponse = expectedResponse();
+
+        JSONAssert.assertEquals(expectedResponse, new JSONObject(response.asString()), false);
+    }
+
+    private JSONObject expectedResponse() throws JSONException {
         JSONObject obj = new JSONObject();
         JSONObject links = new JSONObject();
         links.put("self", new JSONObject().put("href", "/products?pageSize=10&pageIndex=0"));
@@ -56,9 +62,7 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
         }
         embedded.put("products", products);
         obj.put("_embedded", embedded);
-
-        //response.prettyPrint();
-        JSONAssert.assertEquals(obj, new JSONObject(response.asString()), false);
+        return obj;
     }
 
     @RunAsClient

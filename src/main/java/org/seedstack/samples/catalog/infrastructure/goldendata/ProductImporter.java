@@ -28,7 +28,7 @@ import java.util.List;
 class ProductImporter implements DataImporter<Product> {
 
     public static final int MAXIMUM_ITERATION = 15;
-    
+
     @Inject
     @Jpa
     private Repository<Product, String> repository;

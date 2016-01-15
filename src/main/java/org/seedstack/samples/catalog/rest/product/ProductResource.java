@@ -8,25 +8,21 @@
 package org.seedstack.samples.catalog.rest.product;
 
 import com.google.inject.Inject;
-import com.sun.jersey.api.NotFoundException;
-import org.seedstack.business.domain.Repository;
 import org.seedstack.business.assembler.FluentAssembler;
-import org.seedstack.samples.catalog.domain.product.Product;
-import org.seedstack.samples.catalog.Config;
-import org.seedstack.samples.catalog.rest.CatalogRels;
-import org.seedstack.samples.catalog.rest.catalog.TagRepresentation;
+import org.seedstack.business.domain.Repository;
 import org.seedstack.jpa.Jpa;
 import org.seedstack.jpa.JpaUnit;
+import org.seedstack.samples.catalog.Config;
+import org.seedstack.samples.catalog.domain.product.Product;
+import org.seedstack.samples.catalog.rest.CatalogRels;
+import org.seedstack.samples.catalog.rest.catalog.TagRepresentation;
 import org.seedstack.seed.rest.Rel;
 import org.seedstack.seed.rest.RelRegistry;
 import org.seedstack.seed.rest.hal.HalBuilder;
 import org.seedstack.seed.rest.hal.HalRepresentation;
 import org.seedstack.seed.transaction.Transactional;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
