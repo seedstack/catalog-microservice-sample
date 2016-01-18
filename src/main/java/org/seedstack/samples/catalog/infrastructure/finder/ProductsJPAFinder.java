@@ -22,6 +22,7 @@ import org.seedstack.jpa.JpaUnit;
 import org.seedstack.seed.transaction.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -29,16 +30,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
- */
 @Transactional
 @JpaUnit(Config.JPA_UNIT)
 class ProductsJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implements ProductsFinder {
 
+    public static final String SEARCH_CRITERIA = "q";
+
     @Inject
     private EntityManager entityManager;
-
     @Inject
     private FluentAssembler fluently;
 
@@ -46,10 +45,14 @@ class ProductsJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implem
     public PaginatedView<ProductRepresentation> findProducts(Page page, String query) {
         Map<String, Object> map = new HashMap<>();
         if (query != null && !"".equals(query)) {
-            map.put("q", "%" + query + "%");
+            map.put(SEARCH_CRITERIA, buildSqlLikeQuery(query));
         }
         Result<ProductRepresentation> result = find(Range.rangeFromPageInfo(page.getIndex(), page.getCapacity()), map);
         return new PaginatedView<>(result, page);
+    }
+
+    private String buildSqlLikeQuery(String query) {
+        return "%" + query + "%";
     }
 
     @Override
@@ -57,19 +60,18 @@ class ProductsJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implem
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> q = cb.createQuery(Product.class);
         Root<Product> product = q.from(Product.class);
+
         q.select(product);
-        if (criteria != null && criteria.get("q") != null) {
-            q.where(cb.like(product.<String>get("name"), (String) criteria.get("q")));
+        if (criteria != null && criteria.get(SEARCH_CRITERIA) != null) {
+            q.where(cb.like(product.<String>get("name"), (String) criteria.get(SEARCH_CRITERIA)));
         }
-        List<Product> products;
 
+        TypedQuery<Product> query = entityManager.createQuery(q);
         if (range != null) {
-            products = entityManager.createQuery(q).setFirstResult((int) range.getOffset()).setMaxResults((int) range.getSize()).getResultList();
-        } else {
-            products = entityManager.createQuery(q).getResultList();
+            query.setFirstResult((int) range.getOffset()).setMaxResults((int) range.getSize());
         }
 
-        return fluently.assemble(products).to(ProductRepresentation.class);
+        return fluently.assemble(query.getResultList()).to(ProductRepresentation.class);
     }
 
     @Override
@@ -78,8 +80,8 @@ class ProductsJPAFinder extends BaseJpaRangeFinder<ProductRepresentation> implem
         CriteriaQuery<Long> q = cb.createQuery(Long.class);
         Root<Product> product = q.from(Product.class);
         q.select(cb.count(product));
-        if (criteria != null && criteria.get("q") != null) {
-            q.where(cb.like(product.<String>get("name"), (String) criteria.get("q")));
+        if (criteria != null && criteria.get(SEARCH_CRITERIA) != null) {
+            q.where(cb.like(product.<String>get("name"), (String) criteria.get(SEARCH_CRITERIA)));
         }
         return entityManager.createQuery(q).getSingleResult();
     }

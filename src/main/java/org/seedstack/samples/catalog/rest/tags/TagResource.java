@@ -7,26 +7,26 @@
  */
 package org.seedstack.samples.catalog.rest.tags;
 
+import io.swagger.annotations.Api;
 import org.seedstack.business.view.Page;
 import org.seedstack.business.view.PaginatedView;
-import org.seedstack.samples.catalog.Config;
 import org.seedstack.samples.catalog.rest.CatalogRels;
+import org.seedstack.samples.catalog.rest.PageInfo;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
-import org.seedstack.jpa.JpaUnit;
 import org.seedstack.seed.rest.Rel;
 import org.seedstack.seed.rest.RelRegistry;
 import org.seedstack.seed.rest.hal.HalRepresentation;
-import org.seedstack.seed.transaction.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
- */
+import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_INDEX;
+import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_SIZE;
+
+@Api
 @Rel(CatalogRels.TAG)
 @Path("/tags/{tagName}")
 public class TagResource {
@@ -37,36 +37,25 @@ public class TagResource {
     @Inject @Named("tag")
     private TagFinder tagFinder;
 
-    @JpaUnit(Config.JPA_UNIT)
-    @Transactional
     @GET
     @Produces({MediaType.APPLICATION_JSON, "application/hal+json"})
-    public Response getTag(@PathParam("tagName") String tagName, @DefaultValue("0") @QueryParam("pageIndex") Integer pageIndex,
-                           @DefaultValue("10") @QueryParam("pageSize") Integer pageSize) {
-
-        if (tagName == null || "".equals(tagName)) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("The tag name should be specified").build();
+    public HalRepresentation getTag(@PathParam("tagName") String tagName, @Valid @BeanParam PageInfo pageInfo) {
+        PaginatedView<ProductRepresentation> productView = tagFinder.findProductsByTag(pageInfo.page(), tagName);
+        String selfLink = buildTagURI(tagName, pageInfo.page());
+        HalRepresentation tagRepresentation = new TagRepresentation(tagName, productView).self(selfLink);
+        if (productView.hasPrev()) {
+            tagRepresentation.link("prev", buildTagURI(tagName, productView.prev()));
         }
-
-        PaginatedView<ProductRepresentation> view = tagFinder.findProductsByTag(new Page(pageIndex, pageSize), tagName);
-
-        HalRepresentation tagRepresentation = new TagRepresentation(tagName, view)
-                .self(buildTagHref(tagName, pageIndex, pageSize));
-
-        if (view.hasPrev()) {
-            tagRepresentation.link("prev", buildTagHref(tagName, view.prev().getIndex(), pageSize));
+        if (productView.hasNext()) {
+            tagRepresentation.link("next", buildTagURI(tagName, productView.next()));
         }
-        if (view.hasNext()) {
-            tagRepresentation.link("prev", buildTagHref(tagName, view.next().getIndex(), pageSize));
-        }
-
-        return Response.ok(tagRepresentation).build();
+        return tagRepresentation;
     }
 
-    private String buildTagHref(String tagName, long pageIndex, long pageSize) {
+    private String buildTagURI(String tagName, Page page) {
         return relRegistry.uri(CatalogRels.TAG)
                 .set("tagName", tagName)
-                .set("pageIndex", pageIndex)
-                .set("pageSize", pageSize).expand();
+                .set(PAGE_INDEX, page.getIndex())
+                .set(PAGE_SIZE, page.getCapacity()).expand();
     }
 }

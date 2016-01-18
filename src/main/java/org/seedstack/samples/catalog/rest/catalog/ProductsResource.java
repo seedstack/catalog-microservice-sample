@@ -7,22 +7,28 @@
  */
 package org.seedstack.samples.catalog.rest.catalog;
 
+import io.swagger.annotations.Api;
 import org.seedstack.business.view.Page;
 import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.CatalogRels;
+import org.seedstack.samples.catalog.rest.PageInfo;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 import org.seedstack.seed.rest.Rel;
 import org.seedstack.seed.rest.RelRegistry;
 import org.seedstack.seed.rest.hal.HalRepresentation;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
+import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_INDEX;
+import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_SIZE;
 
 /**
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
+@Api
 @Path("/products")
 public class ProductsResource {
 
@@ -35,30 +41,28 @@ public class ProductsResource {
     @GET
     @Rel(value = CatalogRels.CATALOG, home = true)
     @Produces({MediaType.APPLICATION_JSON, "application/hal+json"})
-    public Response products(@QueryParam("q") String filter,
-                             @DefaultValue("0") @QueryParam("pageIndex") Integer pageIndex,
-                             @DefaultValue("10") @QueryParam("pageSize") Integer pageSize) {
+    public HalRepresentation products(@QueryParam("q") String filter, @Valid @BeanParam PageInfo pageInfo) {
+        PaginatedView<ProductRepresentation> view = productsFinder.findProducts(pageInfo.page(), filter);
+        return buildHalRepresentation(pageInfo, view);
+    }
 
-        PaginatedView<ProductRepresentation> view = productsFinder.findProducts(new Page(pageIndex, pageSize), filter);
-
-        HalRepresentation representation = new ProductsRepresentation(view);
-
-        representation.self(relRegistry.uri(CatalogRels.CATALOG).set("pageIndex", pageIndex).set("pageSize", pageSize).expand());
+    private HalRepresentation buildHalRepresentation(@BeanParam PageInfo pageInfo, PaginatedView<ProductRepresentation> view) {
+        HalRepresentation representation = new ProductsRepresentation(view)
+                .self(relRegistry.uri(CatalogRels.CATALOG)
+                        .set(PAGE_INDEX, pageInfo.pageIndex)
+                        .set(PAGE_SIZE, pageInfo.pageSize).expand());
 
         if (view.hasNext()) {
-            Page next = view.next();
-
-            representation.link("next", relRegistry.uri(CatalogRels.CATALOG)
-                    .set("pageIndex", next.getIndex()).set("pageSize", next.getCapacity()).expand());
+            addPageLink(representation, "next", view.next());
         }
-
         if (view.hasPrev()) {
-            Page prev = view.prev();
-
-            representation.link("prev", relRegistry.uri(CatalogRels.CATALOG)
-                    .set("pageIndex", prev.getIndex()).set("pageSize", prev.getCapacity()).expand());
+            addPageLink(representation, "prev", view.prev());
         }
+        return representation;
+    }
 
-        return Response.ok(representation).build();
+    private void addPageLink(HalRepresentation representation, String link, Page page) {
+        representation.link(link, relRegistry.uri(CatalogRels.CATALOG)
+                .set(PAGE_INDEX, page.getIndex()).set(PAGE_SIZE, page.getCapacity()).expand());
     }
 }

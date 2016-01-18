@@ -9,6 +9,7 @@ package org.seedstack.samples.catalog;
 
 import com.jayway.restassured.response.Response;
 import net.minidev.json.JSONArray;
+import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -50,10 +51,9 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
 
     private JSONObject expectedResponse() throws JSONException {
         JSONObject obj = new JSONObject();
-        JSONObject links = new JSONObject();
-        links.put("self", new JSONObject().put("href", "/products?pageSize=10&pageIndex=0"));
-        links.put("next", new JSONObject().put("href", "/products?pageSize=10&pageIndex=1"));
-        obj.put("_links", links);
+        // FIXME links no more include query parameters due to the missing support for BeanParam in HAL
+        // uncomment when the support will be added
+        //expectedLinks(obj);
 
         JSONObject embedded = new JSONObject();
         JSONArray products = new JSONArray();
@@ -65,13 +65,30 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
         return obj;
     }
 
+    private void expectedLinks(JSONObject obj) throws JSONException {
+        JSONObject links = new JSONObject();
+        links.put("self", new JSONObject().put("href", "/products?pageIndex=0&pageSize=10"));
+        links.put("next", new JSONObject().put("href", "/products?pageIndex=1&pageSize=10"));
+        obj.put("_links", links);
+    }
+
     @RunAsClient
     @Test
     public void json_home() throws JSONException {
         Response response = expect().statusCode(200).given().header("Content-Type", "application/json-home")
                 .get(baseURL.toString());
 
-        response.print();
+        Assertions.assertThat(response.asString()).isNotEmpty();
+    }
+
+    @RunAsClient
+    @Test
+    public void validate_pagination() throws JSONException {
+        expect().statusCode(400).given().header("Content-Type", "application/hal+json")
+                .get(baseURL.toString() + "products?pageSize=0");
+
+        expect().statusCode(400).given().header("Content-Type", "application/hal+json")
+                .get(baseURL.toString() + "products?pageIndex=-1");
     }
 
 }

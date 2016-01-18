@@ -21,9 +21,6 @@ import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
- */
 @RunWith(SeedITRunner.class)
 public class TagJpaFinderIT {
 
