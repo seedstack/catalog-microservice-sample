@@ -13,15 +13,13 @@ import org.seedstack.business.view.Page;
 import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 
-import java.util.Map;
-
 /**
  * This finder provides paginated queries on {@link org.seedstack.samples.catalog.domain.product.Product}.
  *
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @Finder
-public interface ProductsFinder extends RangeFinder<ProductRepresentation, Map<String, Object>> {
+public interface ProductsFinder extends RangeFinder<ProductRepresentation, String> {
 
     /**
      * Finds a list of products. The list will be paginated according to the given page.

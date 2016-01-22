@@ -13,15 +13,13 @@ import org.seedstack.business.view.Page;
 import org.seedstack.business.view.PaginatedView;
 import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
 
-import java.util.Map;
-
 /**
  * Provides method to find tags.
  *
  * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @Finder
-public interface TagFinder extends RangeFinder<ProductRepresentation, Map<String, Object>> {
+public interface TagFinder extends RangeFinder<ProductRepresentation, String> {
 
     /**
      * Finds the products associated to a given tag.
