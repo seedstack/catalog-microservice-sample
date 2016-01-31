@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013-2015, The SeedStack authors <http://seedstack.org>
+ * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -31,11 +31,9 @@ import java.util.List;
 @Transactional
 @JpaUnit(Config.JPA_UNIT)
 class ProductsJPAFinder extends BaseRangeFinder<ProductRepresentation, String> implements ProductsFinder {
-
-    public static final String SEARCH_CRITERIA = "q";
-
     @Inject
     private EntityManager entityManager;
+
     @Inject
     private FluentAssembler fluently;
 
@@ -57,7 +55,7 @@ class ProductsJPAFinder extends BaseRangeFinder<ProductRepresentation, String> i
 
         q.select(product);
         if (criteria != null) {
-            q.where(cb.like(product.<String>get("name"), criteria));
+            q.where(cb.like(product.<String>get("name"), buildSqlLikeQuery(criteria)));
         }
 
         TypedQuery<Product> query = entityManager.createQuery(q);
@@ -75,7 +73,7 @@ class ProductsJPAFinder extends BaseRangeFinder<ProductRepresentation, String> i
         Root<Product> product = q.from(Product.class);
         q.select(cb.count(product));
         if (criteria != null) {
-            q.where(cb.like(product.<String>get("name"), criteria));
+            q.where(cb.like(product.<String>get("name"), buildSqlLikeQuery(criteria)));
         }
         return entityManager.createQuery(q).getSingleResult();
     }
