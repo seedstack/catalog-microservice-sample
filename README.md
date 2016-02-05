@@ -11,7 +11,7 @@ If you have [Maven 3](http://maven.apache.org/) installed, you can clone the rep
 
     mvn seedstack:run
 
-# With docker
+## With docker
 
 With Docker, first build the image:
 
