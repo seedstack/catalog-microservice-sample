@@ -23,15 +23,6 @@
 
     <build>
         <finalName>catalog</finalName>
-        <testResources>
-            <testResource>
-                <directory>src/it/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -41,41 +32,16 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>add-it-sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/it/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.18.1</version>
                 <executions>
                     <execution>
-                        <id>failsafe-integration-test</id>
+                        <id>integration-tests</id>
                         <goals>
                             <goal>integration-test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>failsafe-verify</id>
-                        <goals>
                             <goal>verify</goal>
                         </goals>
                     </execution>
@@ -110,7 +76,7 @@
             <dependency>
                 <groupId>org.seedstack</groupId>
                 <artifactId>seedstack-bom</artifactId>
-                <version>15.11.1</version>
+                <version>15.11.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -161,6 +127,7 @@
             <version>5.0.1.Final</version>
         </dependency>
 
+        <!-- Testing dependencies -->
         <dependency>
             <groupId>org.seedstack.poms</groupId>
             <artifactId>arquillian-composite</artifactId>
