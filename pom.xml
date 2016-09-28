@@ -76,7 +76,7 @@
             <dependency>
                 <groupId>org.seedstack</groupId>
                 <artifactId>seedstack-bom</artifactId>
-                <version>15.11.2</version>
+                <version>16.7.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -105,6 +105,15 @@
         <dependency>
             <groupId>org.seedstack.addons.validation</groupId>
             <artifactId>validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.seedstack.business</groupId>
+            <artifactId>business-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
