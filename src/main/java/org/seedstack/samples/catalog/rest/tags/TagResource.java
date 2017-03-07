@@ -56,6 +56,6 @@ public class TagResource {
         return relRegistry.uri(CatalogRels.TAG)
                 .set("tagName", tagName)
                 .set(PAGE_INDEX, page.getIndex())
-                .set(PAGE_SIZE, page.getCapacity()).expand();
+                .set(PAGE_SIZE, page.getCapacity()).getHref();
     }
 }

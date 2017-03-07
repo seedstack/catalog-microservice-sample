@@ -50,7 +50,7 @@ public class ProductsResource {
         HalRepresentation representation = new ProductsRepresentation(view)
                 .self(relRegistry.uri(CatalogRels.CATALOG)
                         .set(PAGE_INDEX, pageInfo.pageIndex)
-                        .set(PAGE_SIZE, pageInfo.pageSize).expand());
+                        .set(PAGE_SIZE, pageInfo.pageSize).getHref());
 
         if (view.hasNext()) {
             addPageLink(representation, "next", view.next());
@@ -63,6 +63,6 @@ public class ProductsResource {
 
     private void addPageLink(HalRepresentation representation, String link, Page page) {
         representation.link(link, relRegistry.uri(CatalogRels.CATALOG)
-                .set(PAGE_INDEX, page.getIndex()).set(PAGE_SIZE, page.getCapacity()).expand());
+                .set(PAGE_INDEX, page.getIndex()).set(PAGE_SIZE, page.getCapacity()).getHref());
     }
 }

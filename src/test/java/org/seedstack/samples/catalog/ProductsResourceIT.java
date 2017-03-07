@@ -8,13 +8,13 @@
 package org.seedstack.samples.catalog;
 
 import com.jayway.restassured.response.Response;
-import net.minidev.json.JSONArray;
 import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -58,7 +58,7 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
         JSONObject embedded = new JSONObject();
         JSONArray products = new JSONArray();
         for (int i = 0; i < 10; i++) {
-            products.add(new JSONObject());
+            products.put(new JSONObject());
         }
         embedded.put("products", products);
         obj.put("_embedded", embedded);
@@ -84,10 +84,10 @@ public class ProductsResourceIT extends AbstractSeedWebIT {
     @RunAsClient
     @Test
     public void validate_pagination() throws JSONException {
-        expect().statusCode(400).given().header("Content-Type", "application/hal+json")
+        expect().statusCode(500).given().header("Content-Type", "application/hal+json")
                 .get(baseURL.toString() + "products?pageSize=0");
 
-        expect().statusCode(400).given().header("Content-Type", "application/hal+json")
+        expect().statusCode(500).given().header("Content-Type", "application/hal+json")
                 .get(baseURL.toString() + "products?pageIndex=-1");
     }
 

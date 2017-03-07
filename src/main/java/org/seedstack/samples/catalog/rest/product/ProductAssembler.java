@@ -34,19 +34,19 @@ public class ProductAssembler extends ModelMapperAssembler<Product, ProductRepre
                 AbstractConverter<Object, Object> selfConverter = new AbstractConverter<Object, Object>() {
                     @Override
                     protected Object convert(Object source) {
-                        return relRegistry.uri(CatalogRels.PRODUCT).set("title", source).expand();
+                        return relRegistry.uri(CatalogRels.PRODUCT).set("title", source).getHref();
                     }
                 };
                 AbstractConverter<Object, Object> tagConverter = new AbstractConverter<Object, Object>() {
                     @Override
                     protected Object convert(Object source) {
-                        return relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", source).expand();
+                        return relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", source).getHref();
                     }
                 };
                 AbstractConverter<Object, Object> relatedConverter = new AbstractConverter<Object, Object>() {
                     @Override
                     protected Object convert(Object source) {
-                        return relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", source).expand();
+                        return relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", source).getHref();
                     }
                 };
 

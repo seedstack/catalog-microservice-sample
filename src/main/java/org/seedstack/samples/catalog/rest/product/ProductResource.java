@@ -23,9 +23,14 @@ import org.seedstack.seed.rest.hal.HalBuilder;
 import org.seedstack.seed.rest.hal.HalRepresentation;
 import org.seedstack.seed.transaction.Transactional;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Api
@@ -37,7 +42,8 @@ public class ProductResource {
 
     private static final String PRODUCT_DOES_NOT_EXIST = "Product %s doesn't exist";
 
-    @Inject @Jpa
+    @Inject
+    @Jpa
     private Repository<Product, String> repository;
     @Inject
     private RelRegistry relRegistry;
@@ -65,14 +71,14 @@ public class ProductResource {
         if (product == null) {
             throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
         }
-        String selfLink = relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", productName).expand();
+        String selfLink = relRegistry.uri(CatalogRels.PRODUCT_TAGS).set("title", productName).getHref();
         List<HalRepresentation> tagRepresentations = product.getTags().stream()
                 .map(this::buildHalTag).collect(Collectors.toList());
         return HalBuilder.create(null).self(selfLink).embedded("tags", tagRepresentations);
     }
 
     private HalRepresentation buildHalTag(String tagName) {
-        return HalBuilder.create(new TagRepresentation(tagName)).self(relRegistry.uri(CatalogRels.TAG).set("tagName", tagName).expand());
+        return HalBuilder.create(new TagRepresentation(tagName)).self(relRegistry.uri(CatalogRels.TAG).set("tagName", tagName).getHref());
     }
 
     @GET
@@ -83,14 +89,14 @@ public class ProductResource {
         if (product == null) {
             throw new NotFoundException(String.format(PRODUCT_DOES_NOT_EXIST, productName));
         }
-        String selfLink = relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).expand();
+        String selfLink = relRegistry.uri(CatalogRels.PRODUCT_RELATED).set("title", productName).getHref();
         List<ProductRepresentation> embeddedRelatedProduct = getRelatedProducts(product);
         return HalBuilder.create(null).self(selfLink).embedded("related", embeddedRelatedProduct);
     }
 
     private List<ProductRepresentation> getRelatedProducts(Product product) {
         return product.getRelated().stream()
-                .map(repository::load).filter(p -> p != null)
+                .map(repository::load).filter(Objects::nonNull)
                 .map(relatedProduct -> fluently.assemble(relatedProduct).to(ProductRepresentation.class))
                 .collect(Collectors.toList());
     }

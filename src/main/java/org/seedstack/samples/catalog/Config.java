@@ -17,5 +17,5 @@ public class Config {
     /**
      * The name of application's JPA unit.
      */
-    public static final String JPA_UNIT = "catalog-domain";
+    public static final String JPA_UNIT = "catalogDomain";
 }

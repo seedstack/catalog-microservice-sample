@@ -1,1 +1,1 @@
-web: java -Dorg.seedstack.seed.profiles=heroku -jar target/catalog-capsule.jar
+web: java -Dseedstack.profiles=heroku -jar target/catalog-capsule.jar
