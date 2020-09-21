@@ -1,55 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+    Copyright © 2013-2018, The SeedStack authors <http://seedstack.org>
 
     This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.seedstack.samples.catalog</groupId>
+    <parent>
+        <groupId>org.seedstack.samples</groupId>
+        <artifactId>samples</artifactId>
+        <version>20.7-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
     <artifactId>catalog-microservice-sample</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 
     <build>
-        <finalName>catalog</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.seedstack</groupId>
-                    <artifactId>seedstack-maven-plugin</artifactId>
-                    <version>2.4.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <executions>
-                    <execution>
-                        <id>integration-tests</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.seedstack</groupId>
                 <artifactId>seedstack-maven-plugin</artifactId>
@@ -65,24 +38,10 @@
         </plugins>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.seedstack</groupId>
-                <artifactId>seedstack-bom</artifactId>
-                <version>16.11.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <!-- Rest composite provides main features -->
         <dependency>
-            <groupId>org.seedstack</groupId>
-            <artifactId>rest-composite</artifactId>
-            <type>pom</type>
+            <groupId>org.seedstack.seed</groupId>
+            <artifactId>seed-rest-jersey2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.seedstack.seed</groupId>
@@ -101,44 +60,67 @@
             <artifactId>business-core</artifactId>
         </dependency>
         <dependency>
+            <!-- TODO migrate business code to business 4.x -->
+            <groupId>org.seedstack.business</groupId>
+            <artifactId>business-migrate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.8.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.3.3</version>
+            <version>${hsqldb.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.6</version>
+            <version>${logback.version}</version>
         </dependency>
 
-        <!-- Testing dependencies -->
         <dependency>
-            <groupId>org.seedstack.poms</groupId>
-            <artifactId>arquillian-composite</artifactId>
-            <type>pom</type>
+            <groupId>org.seedstack.seed</groupId>
+            <artifactId>seed-testing-junit4</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-testing</artifactId>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
-            <version>1.2.3</version>
+            <version>${jsonassert.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.jayway.restassured</groupId>
+            <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>2.5.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <id>ojo-libs-snapshot</id>
+            <name>ojo-snapshots</name>
+            <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
+        </repository>
+    </repositories>
 </project>

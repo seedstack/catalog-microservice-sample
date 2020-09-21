@@ -2,14 +2,13 @@ sudo: false
 
 language: java
 
-jdk: oraclejdk8
-
-notifications:
-  irc: "chat.freenode.net#seedstack-dev"
+jdk:
+  - openjdk8
+  - openjdk9
+  - openjdk10
+  - openjdk11
 
 cache:
-  directories: "$HOME/.m2/repository"
+  directories:
+    - "$HOME/.m2/repository"
 
-install: rm ~/.m2/settings.xml
-
-script: mvn -q -U -T 2 -Psnapshots install

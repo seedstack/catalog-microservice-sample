@@ -1,23 +1,20 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2018, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.samples.catalog.rest.product;
 
-import org.seedstack.business.assembler.DtoOf;
-import org.seedstack.samples.catalog.domain.product.Product;
-import org.seedstack.samples.catalog.rest.CatalogRels;
-import org.seedstack.seed.rest.hal.HalRepresentation;
+package org.seedstack.samples.catalog.interfaces.rest.product;
 
 import java.net.URI;
 import java.util.List;
+import org.seedstack.business.assembler.DtoOf;
+import org.seedstack.samples.catalog.domain.model.product.Product;
+import org.seedstack.samples.catalog.interfaces.rest.CatalogRels;
+import org.seedstack.seed.rest.hal.HalRepresentation;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
- */
 @DtoOf(Product.class)
 public class ProductRepresentation extends HalRepresentation {
 
@@ -45,6 +42,10 @@ public class ProductRepresentation extends HalRepresentation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setSelf(String uri) {
+        self(uri);
     }
 
     public URI getPicture() {

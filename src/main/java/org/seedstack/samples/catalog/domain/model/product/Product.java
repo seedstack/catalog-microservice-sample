@@ -1,13 +1,15 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2018, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.samples.catalog.domain.product;
+
+package org.seedstack.samples.catalog.domain.model.product;
 
 import org.hibernate.annotations.Type;
+import org.seedstack.business.data.DataSet;
 import org.seedstack.business.domain.BaseAggregateRoot;
 
 import javax.persistence.ElementCollection;
@@ -19,32 +21,24 @@ import java.util.Set;
 
 /**
  * The product entity.
- *
- * @author pierre.thirouin@ext.mpsa.com (Pierre Thirouin)
  */
 @Entity
+@DataSet(group = "catalog", name = "product")
 public class Product extends BaseAggregateRoot<String> {
-
     @Id
     private String name;
-
     private URI picture;
-
     private Price pricing;
-
     @Type(type = "text")
     private String description;
-
     @ElementCollection
     private Set<String> tags = new HashSet<String>();
-
     @ElementCollection
     private Set<String> details = new HashSet<String>();
-
     @ElementCollection
     private Set<String> related = new HashSet<String>();
 
-    Product() {
+    protected Product() {
     }
 
     /**
@@ -109,7 +103,7 @@ public class Product extends BaseAggregateRoot<String> {
     }
 
     @Override
-    public String getEntityId() {
+    public String getId() {
         return this.name;
     }
 }

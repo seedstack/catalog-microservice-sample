@@ -1,30 +1,34 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2018, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.samples.catalog.rest.tags;
+
+package org.seedstack.samples.catalog.interfaces.rest.tags;
+
+import static org.seedstack.samples.catalog.interfaces.rest.PageInfo.PAGE_INDEX;
+import static org.seedstack.samples.catalog.interfaces.rest.PageInfo.PAGE_SIZE;
 
 import io.swagger.annotations.Api;
-import org.seedstack.business.view.Page;
-import org.seedstack.business.view.PaginatedView;
-import org.seedstack.samples.catalog.rest.CatalogRels;
-import org.seedstack.samples.catalog.rest.PageInfo;
-import org.seedstack.samples.catalog.rest.product.ProductRepresentation;
-import org.seedstack.seed.rest.Rel;
-import org.seedstack.seed.rest.RelRegistry;
-import org.seedstack.seed.rest.hal.HalRepresentation;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_INDEX;
-import static org.seedstack.samples.catalog.rest.PageInfo.PAGE_SIZE;
+import org.seedstack.business.view.Page;
+import org.seedstack.business.view.PaginatedView;
+import org.seedstack.samples.catalog.interfaces.rest.CatalogRels;
+import org.seedstack.samples.catalog.interfaces.rest.PageInfo;
+import org.seedstack.samples.catalog.interfaces.rest.product.ProductRepresentation;
+import org.seedstack.seed.rest.Rel;
+import org.seedstack.seed.rest.RelRegistry;
+import org.seedstack.seed.rest.hal.HalRepresentation;
 
 @Api
 @Rel(CatalogRels.TAG)
@@ -34,7 +38,8 @@ public class TagResource {
     @Inject
     private RelRegistry relRegistry;
 
-    @Inject @Named("tag")
+    @Inject
+    @Named("tag")
     private TagFinder tagFinder;
 
     @GET
