@@ -25,7 +25,7 @@ Then start a container:
 
 Or you can just deploy it on your own Heroku account by clicking this button:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/seedstack/catalog-microservice-sample)
 
 # Usage
 
