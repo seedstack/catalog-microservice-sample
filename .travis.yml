@@ -3,10 +3,7 @@ sudo: false
 language: java
 
 jdk:
-  - openjdk8
-  - openjdk9
-  - openjdk10
-  - openjdk11
+  - openjdk14
 
 cache:
   directories:
